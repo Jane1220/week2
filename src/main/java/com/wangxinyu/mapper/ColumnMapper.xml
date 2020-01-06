@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangxinyu.mapper.ColumnMapper">
+
+<insert id="insert">
+
+insert into col(gj,ms,name,brand,address,price,starttime,njtime,status,bz)values
+<foreach collection="columnlist" item="b" separator=",">
+(#{b.gj},#{b.ms},#{b.name},#{b.brand},#{b.address},#{b.price},#{b.starttime},#{b.njtime},#{b.status},#{b.bz})
+</foreach>
+
+</insert>
+
+<select id="getColumnList" resultType="map">
+
+select * from col
+
+<where>
+	<if test="id!=null">
+		and id like '%${id}%'
+	</if>
+	<if test="gj!=null and gj!=''">
+		and gj like '%${gj}%'
+	</if>
+	<if test="ms!=null and ms!=''">
+		and ms like '%${ms}%'
+	</if>
+	<if test="name!=null and name!=''">
+		and name like '%${name}%'
+	</if>
+	<if test="brand!=null and brand!=''">
+		and brand like '%${brand}%'
+	</if>
+	<if test="address!=null and address!=''">
+		and address like '%${address}%'
+	</if>
+	<if test="price1!=null and price1!=''">
+		and price >= ${price1}
+	</if>
+	<if test="price2!=null and price2!=''">
+		and price &lt;= ${price2}
+	</if>
+	<if test="s1!=null and s1!=''">
+		and starttime >= ${s1}
+	</if>
+	<if test="s2!=null and s2!=''">
+		and starttime &lt;= ${s2}
+	</if>
+	<if test="n1!=null and n1!=''">
+		and njtime >= ${n1}
+	</if>
+	<if test="n2!=null and n2!=''">
+		and njtime &lt;= ${n2}
+	</if>
+	<if test="status!=null and status!=''">
+		and status like '%${status}%'
+	</if>
+</where>
+
+</select>
+
+</mapper>
